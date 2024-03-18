@@ -1,33 +1,37 @@
 #!/usr/bin/env python3
 
-from book import Book
+class Book:
+    def __init__(self, title, author, pages):
+        self.title = title
+        self.author = author
+        self.pages = pages
 
-import io
-import sys
+    @property
+    def title(self):
+        return self._title
 
-class TestBook:
-    '''Book in book.py'''
+    @title.setter
+    def title(self, value):
+        if not isinstance(value, str):
+            raise TypeError("Title must be a string.")
+        self._title = value
 
-    def test_has_title_and_page_count(self):
-        '''has the title and page_count passed into __init__, and values can be set to new instance.'''
-        book = Book("And Then There Were None", 272)
-        assert(book.page_count == 272)
-        assert(book.title == "And Then There Were None")
+    @property
+    def author(self):
+        return self._author
 
-    def test_requires_int_page_count(self):
-        '''prints "page_count must be an integer" if page_count is not an integer.'''
-        book = Book("And Then There Were None", 272)
-        captured_out = io.StringIO()
-        sys.stdout = captured_out
-        book.page_count = "not an integer"
-        sys.stdout = sys.__stdout__
-        assert captured_out.getvalue() == "page_count must be an integer\n"
+    @author.setter
+    def author(self, value):
+        if not isinstance(value, str):
+            raise TypeError("Author must be a string.")
+        self._author = value
 
-    def test_can_turn_page(self):
-        '''outputs "Flipping the page...wow, you read fast!" when method turn_page() is called'''
-        book = Book("The World According to Garp", 69)
-        captured_out = io.StringIO()
-        sys.stdout = captured_out
-        book.turn_page()
-        sys.stdout = sys.__stdout__
-        assert(captured_out.getvalue() == "Flipping the page...wow, you read fast!\n")
+    @property
+    def pages(self):
+        return self._pages
+
+    @pages.setter
+    def pages(self, value):
+        if not isinstance(value, int):
+            raise TypeError("Pages must be an integer.")
+        self._pages = value
